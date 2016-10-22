@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteca.Data
+namespace Biblioteca.Data.Modelo
 {
-    public class Class1
+    public class Libro
     {
-
+        public int Id { get; set; }
+        public string Nombre { get; set; }
     }
 }
