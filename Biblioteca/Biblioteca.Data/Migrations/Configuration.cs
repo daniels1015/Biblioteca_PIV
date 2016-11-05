@@ -10,6 +10,7 @@ namespace Biblioteca.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "Biblioteca.Data.BibliotecaContext";
         }
 
         protected override void Seed(Biblioteca.Data.BibliotecaContext context)

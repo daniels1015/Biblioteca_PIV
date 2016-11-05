@@ -12,18 +12,17 @@ namespace Biblioteca.Consola
     {
         static void Main(string[] args)
         {
-            using (var context = new BibliotecaContext("BibliotecaLocal"))
+            using (var context = new BibliotecaContext("BibliotecaMaestro"))
             {
                 var nuevoLibro = new Libro();
-                nuevoLibro.Nombre = "Libro de Nacho";
-                nuevoLibro.Year = 2000;
-                context.Libro.Add(nuevoLibro);
+                nuevoLibro.Nombre = "Otro libro";
+                nuevoLibro.Año = 2000;
+                context.Libros.Add(nuevoLibro);
                 context.SaveChanges();
 
-                Console.WriteLine("Hola Mundo");
+                Console.WriteLine("Hola mundo");
                 Console.ReadKey();
-            }
-                
+            }   
         }
     }
 }

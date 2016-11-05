@@ -12,11 +12,10 @@ namespace Biblioteca.Data.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Nombre = c.Int(nullable: false),
+                        Nombre = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
-            AddColumn("dbo.Libroes", "Year", c => c.Int(nullable: false));
             AddColumn("dbo.Libroes", "Editorial_Id", c => c.Int());
             CreateIndex("dbo.Libroes", "Editorial_Id");
             AddForeignKey("dbo.Libroes", "Editorial_Id", "dbo.Editorials", "Id");
@@ -27,7 +26,6 @@ namespace Biblioteca.Data.Migrations
             DropForeignKey("dbo.Libroes", "Editorial_Id", "dbo.Editorials");
             DropIndex("dbo.Libroes", new[] { "Editorial_Id" });
             DropColumn("dbo.Libroes", "Editorial_Id");
-            DropColumn("dbo.Libroes", "Year");
             DropTable("dbo.Editorials");
         }
     }
