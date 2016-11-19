@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Biblioteca.Data;
 using Biblioteca.Data.Modelos;
-using System.Web.Http.Description;
+using System.Web.Configuration;
 
 namespace Biblioteca.Host.Controllers
 {
     public class EditorialController : ApiController
     {
-        BibliotecaContext bibliotecaContext = new BibliotecaContext("BibliotecaLocal");
+        BibliotecaContext bibliotecaContext =
+            new BibliotecaContext(WebConfigurationManager.AppSettings["connectionStringParaUsar"]);
 
         protected override void Dispose(bool disposing)
         {
@@ -20,6 +19,7 @@ namespace Biblioteca.Host.Controllers
             {
                 bibliotecaContext.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -27,7 +27,6 @@ namespace Biblioteca.Host.Controllers
         public IEnumerable<Editorial> Get()
         {
             return bibliotecaContext.Editoriales;
-            //return new string[] { "value1", "value2" };
         }
 
         // GET: api/Editorial/5
@@ -35,14 +34,14 @@ namespace Biblioteca.Host.Controllers
         public IHttpActionResult Get(int id)
         {
             var editorial = bibliotecaContext.Editoriales.Find(id);
-            if (editorial==null)
+            if (editorial == null)
             {
                 return NotFound();
-            } else
+            }
+            else
             {
                 return Ok(editorial);
             }
-            //return "value";
         }
 
         // POST: api/Editorial
@@ -53,6 +52,7 @@ namespace Biblioteca.Host.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             bibliotecaContext.Editoriales.Add(nuevoEditorial);
             bibliotecaContext.SaveChanges();
             return Ok(nuevoEditorial);
@@ -62,11 +62,14 @@ namespace Biblioteca.Host.Controllers
         [ResponseType(typeof(Editorial))]
         public IHttpActionResult Put(int id, Editorial editorial)
         {
-            if(id!=editorial.Id)
+            if (id != editorial.Id)
             {
                 return BadRequest(ModelState);
             }
-            bibliotecaContext.Entry(editorial).State = System.Data.Entity.EntityState.Modified;
+
+            bibliotecaContext.Entry(editorial).State = 
+                EntityState.Modified;
+
             bibliotecaContext.SaveChanges();
             return Ok(editorial);
         }
@@ -75,8 +78,9 @@ namespace Biblioteca.Host.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult Delete(int id)
         {
-            var editorial = bibliotecaContext.Editoriales.Find(id);
-            if (editorial==null)
+            var editorial = 
+                bibliotecaContext.Editoriales.Find(id);
+            if (editorial == null)
             {
                 return NotFound();
             }
