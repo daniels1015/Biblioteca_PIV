@@ -6,6 +6,10 @@
                 controller: "homeController"
                 //template: "<p>Hola Mundo con Angular.</p>"
             })
+            .when('/editoriales', {
+                templateUrl: "/Scripts/app/editorial/editorial.template.html",
+                controller: "editorialController"
+            })
             .otherwise({
                    redirectTo: '/'
                 })
