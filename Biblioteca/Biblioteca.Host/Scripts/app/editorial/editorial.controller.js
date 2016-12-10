@@ -41,6 +41,8 @@
                 $scope.obtenerEditoriales();
                 $scope.limpiar();
                 alert('Editorial Eliminada!');
+            }, function (error) {
+                alert('Error eliminando editorial');
             });
             }
         }
